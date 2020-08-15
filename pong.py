@@ -34,6 +34,9 @@ ball.shape("square")
 ball.color("yellow")
 ball.penup()
 ball.goto(0, 0)
+#--ball movement
+ball.dx = 0.2
+ball.dy = 0.2
 
 #Function to move the paddles
 def paddle_a_up():
@@ -69,3 +72,7 @@ wn.onkeypress(paddle_b_down, "Down")
 #main game loop 
 while True:
   wn.update()
+
+  #move the ball
+  ball.setx(ball.xcor() + ball.dx)
+  ball.sety(ball.ycor() + ball.dy)
