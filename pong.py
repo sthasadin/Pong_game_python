@@ -6,6 +6,9 @@ wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)  #stop the screen from refreshing and will help to speed up the game
 
+#Score
+score_a = 0
+score_b = 0
 
 #Paddle A
 paddle_a = turtle.Turtle()
@@ -37,6 +40,17 @@ ball.goto(0, 0)
 #--ball movement
 ball.dx = 0.2
 ball.dy = -0.2
+
+
+#Pen 
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player A:  Player B:" , align="center", font=("courier", 24, "normal"))
+
 
 #Function to move the paddles
 def paddle_a_up():
@@ -90,10 +104,26 @@ while True:
   if ball.xcor() >390:
     ball.goto(0,0)
     ball.dx *=-1
+    score_a +=1
+    pen.clear()
+    pen.write("Player A:{}  Player B:{}".format(score_a, score_b) , align="center", font=("courier", 24, "normal"))
+    # if score_a >5 and score_b <5:
+    #   pen.clear()
+    #   pen.write("player A won",align="center", font=("courier", 24, "normal"))
 
   if ball.xcor() < -390:
     ball.goto(0,0)
     ball.dx *=-1
+    score_b +=1
+    pen.clear()
+    pen.write("Player A:{}  Player B:{}".format(score_a, score_b) , align="center", font=("courier", 24, "normal"))
 
   #paddle and ball collision
-  
+  if (ball.xcor()> 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
+    ball.setx(340)
+    ball.dx *= -1
+
+
+  if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
+    ball.setx(-340)
+    ball.dx *= -1
